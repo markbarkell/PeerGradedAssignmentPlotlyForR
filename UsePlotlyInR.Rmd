@@ -1,0 +1,30 @@
+---
+title: "Showing a simple example using Plotly"
+author: "Mark Barkell"
+date: "January 6, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r usePlotly, message=FALSE}
+
+library(plotly)
+set.seed(2018-01-06)
+x <- 1:1000 * .01
+y <- runif(length(x), -50,50) + sin(x)
+
+data <- data.frame(x, functionValueAndNoise = y, functionValue = sin(x))
+
+p <- plot_ly(data, x = ~x, 
+             y = ~functionValueAndNoise, 
+             type='scatter', 
+             mode = 'markers',
+             name="Noise Data")  %>%
+  add_trace(y = ~functionValue, name = "Real Data", mode='lines')
+
+p
+
+```
